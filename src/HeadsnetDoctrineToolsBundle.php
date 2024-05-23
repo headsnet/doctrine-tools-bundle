@@ -2,6 +2,7 @@
 
 namespace Headsnet\DoctrineToolsBundle;
 
+use Headsnet\DoctrineToolsBundle\CarbonTypes\RegisterCarbonTypesCompilerPass;
 use Headsnet\DoctrineToolsBundle\CustomTypes\RegisterDoctrineTypesCompilerPass;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,18 +21,31 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
             ->scalarPrototype()->end()
             ->end()
             ->end()
+            ->end() // End custom_types
+            ->arrayNode('carbon_types')
+            ->canBeDisabled()
+            ->children()
+            ->booleanNode('enabled')
+            ->defaultTrue()->end()
+            ->booleanNode('replace')
+            ->defaultTrue()->end()
             ->end()
-            ->end()
+            ->end() // End carbon_types
         ;
     }
 
     /**
-     * @param array{custom_types: array{scan_dirs: array<string>}} $config
+     * @param array{
+     *     custom_types: array{scan_dirs: array<string>},
+     *     carbon_types: array{enabled: boolean, replace: boolean}
+     * } $config
      */
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->parameters()
             ->set('headsnet_doctrine_tools.custom_types.scan_dirs', $config['custom_types']['scan_dirs'])
+            ->set('headsnet_doctrine_tools.carbon_types.enabled', $config['carbon_types']['enabled'])
+            ->set('headsnet_doctrine_tools.carbon_types.replace', $config['carbon_types']['replace'])
         ;
     }
 
@@ -41,6 +55,10 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
 
         $container->addCompilerPass(
             new RegisterDoctrineTypesCompilerPass()
+        );
+
+        $container->addCompilerPass(
+            new RegisterCarbonTypesCompilerPass()
         );
     }
 }
