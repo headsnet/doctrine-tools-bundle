@@ -22,7 +22,7 @@ class RegisterDoctrineTypesCompilerPassTest extends TestCase
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
         $container->setParameter('headsnet_doctrine_tools.custom_types.scan_dirs', [
-            __DIR__ . '/Fixtures'
+            __DIR__ . '/Fixtures',
         ]);
         $sut = new RegisterDoctrineTypesCompilerPass();
 
@@ -30,8 +30,12 @@ class RegisterDoctrineTypesCompilerPassTest extends TestCase
 
         $result = $container->getParameter('doctrine.dbal.connection_factory.types');
         $expected = [
-            'dummy_custom' => ['class' => DummyCustomType::class],
-            'my_custom_name' => ['class' => DummyCustomTypeWithName::class]
+            'dummy_custom' => [
+                'class' => DummyCustomType::class,
+            ],
+            'my_custom_name' => [
+                'class' => DummyCustomTypeWithName::class,
+            ],
         ];
         $this->assertEquals($expected, $result);
     }
@@ -41,10 +45,12 @@ class RegisterDoctrineTypesCompilerPassTest extends TestCase
     {
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', [
-            'dummy_custom' => ['class' => DummyCustomType::class]
+            'dummy_custom' => [
+                'class' => DummyCustomType::class,
+            ],
         ]);
         $container->setParameter('headsnet_doctrine_tools.custom_types.scan_dirs', [
-            __DIR__ . '/Fixtures'
+            __DIR__ . '/Fixtures',
         ]);
         $sut = new RegisterDoctrineTypesCompilerPass();
 
@@ -52,8 +58,12 @@ class RegisterDoctrineTypesCompilerPassTest extends TestCase
 
         $result = $container->getParameter('doctrine.dbal.connection_factory.types');
         $expected = [
-            'dummy_custom' => ['class' => DummyCustomType::class],
-            'my_custom_name' => ['class' => DummyCustomTypeWithName::class]
+            'dummy_custom' => [
+                'class' => DummyCustomType::class,
+            ],
+            'my_custom_name' => [
+                'class' => DummyCustomTypeWithName::class,
+            ],
         ];
         $this->assertEquals($expected, $result);
     }

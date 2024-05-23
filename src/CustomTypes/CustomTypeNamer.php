@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Headsnet\DoctrineToolsBundle\CustomTypes;
 
+use Doctrine\DBAL\Types\Type;
 use ReflectionClass;
 
 /**
@@ -12,20 +13,21 @@ use ReflectionClass;
  */
 final class CustomTypeNamer
 {
+    /**
+     * @param ReflectionClass<Type> $reflection
+     */
     public static function getTypeName(ReflectionClass $reflection): string
     {
         $attribute = $reflection->getAttributes(CustomType::class)[0];
 
-
         $attributeArgs = $attribute->getArguments();
 
-        if (isset($attributeArgs['name']))
-        {
+        if (isset($attributeArgs['name'])) {
             return $attributeArgs['name'];
         }
 
         $typeName = str_replace('Type', '', $reflection->getShortName());
-        $typeName = preg_replace("/(?<=.)([A-Z])/", "_$1", $typeName);
+        $typeName = (string) preg_replace("/(?<=.)([A-Z])/", "_$1", $typeName);
 
         return strtolower($typeName);
     }

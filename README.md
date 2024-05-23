@@ -2,6 +2,7 @@ Doctrine Tools
 ====
 
 ![Build Status](https://github.com/headsnet/doctrine-tools-bundle/actions/workflows/ci.yml/badge.svg)
+![Coverage](https://raw.githubusercontent.com/headsnet/doctrine-tools-bundle/image-data/coverage.svg)
 [![Latest Stable Version](https://poser.pugx.org/headsnet/doctrine-tools-bundle/v)](//packagist.org/packages/headsnet/doctrine-tools-bundle)
 [![Total Downloads](https://poser.pugx.org/headsnet/doctrine-tools-bundle/downloads)](//packagist.org/packages/headsnet/doctrine-tools-bundle)
 [![License](https://poser.pugx.org/headsnet/doctrine-tools-bundle/license)](//packagist.org/packages/headsnet/doctrine-tools-bundle)

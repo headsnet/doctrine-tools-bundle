@@ -21,60 +21,58 @@ final class RegisterDoctrineTypesCompilerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasParameter(self::TYPE_DEFINITION_PARAMETER))
-        {
+        if (!$container->hasParameter(self::TYPE_DEFINITION_PARAMETER)) {
             return;
         }
 
         /** @var array<string, array{class: class-string}> $typeDefinitions */
         $typeDefinitions = $container->getParameter(self::TYPE_DEFINITION_PARAMETER);
+        /** @var array<string> $scanDirs */
         $scanDirs = $container->getParameter('headsnet_doctrine_tools.custom_types.scan_dirs');
 
         $types = $this->findTypesInApplication($scanDirs);
 
-        foreach ($types as $type)
-        {
+        foreach ($types as $type) {
             $name = $type['name'];
             $class = $type['class'];
 
             // Do not add the type if it's been manually defined already
-            if (array_key_exists($name, $typeDefinitions))
-            {
+            if (array_key_exists($name, $typeDefinitions)) {
                 continue;
             }
 
-            $typeDefinitions[$name] = ['class' => $class];
+            $typeDefinitions[$name] = [
+                'class' => $class,
+            ];
         }
 
         $container->setParameter(self::TYPE_DEFINITION_PARAMETER, $typeDefinitions);
     }
 
     /**
+     * @param array<string> $scanDirs
+     *
      * @return Generator<int, array{class: class-string, name: string}>
      */
-    private function findTypesInApplication($scanDirs): iterable
+    private function findTypesInApplication(array $scanDirs): iterable
     {
         $classNames = ConstructFinder::locatedIn(...$scanDirs)->findClassNames();
 
-        foreach ($classNames as $className)
-        {
+        foreach ($classNames as $className) {
             $reflection = new ReflectionClass($className);
 
             // If the class is not a Doctrine Type
-            if (!$reflection->isSubclassOf(Type::class))
-            {
+            if (!$reflection->isSubclassOf(Type::class)) {
                 continue;
             }
 
             // Skip any abstract parent types
-            if ($reflection->isAbstract())
-            {
+            if ($reflection->isAbstract()) {
                 continue;
             }
 
             // Only register types that have the #[CustomType] attribute
-            if ($reflection->getAttributes(CustomType::class))
-            {
+            if ($reflection->getAttributes(CustomType::class)) {
                 yield [
                     'name' => CustomTypeNamer::getTypeName($reflection),
                     'class' => $className,
@@ -82,5 +80,4 @@ final class RegisterDoctrineTypesCompilerPass implements CompilerPassInterface
             }
         }
     }
-
 }
