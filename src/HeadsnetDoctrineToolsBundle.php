@@ -1,4 +1,5 @@
 <?php
+
 namespace Headsnet\DoctrineToolsBundle;
 
 use Headsnet\DoctrineToolsBundle\CustomTypes\RegisterDoctrineTypesCompilerPass;
@@ -13,23 +14,25 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
     {
         $definition->rootNode()
             ->children()
-                ->arrayNode('custom_types')
-                    ->children()
-                        ->arrayNode('scan_dirs')
-                        ->scalarPrototype()->end()
-                    ->end()
-                    ->end()
-                ->end()
+            ->arrayNode('custom_types')
+            ->children()
+            ->arrayNode('scan_dirs')
+            ->scalarPrototype()->end()
+            ->end()
+            ->end()
+            ->end()
             ->end()
         ;
     }
 
+    /**
+     * @param array{custom_types: array{scan_dirs: array<string>}} $config
+     */
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->parameters()
             ->set('headsnet_doctrine_tools.custom_types.scan_dirs', $config['custom_types']['scan_dirs'])
         ;
-
     }
 
     public function build(ContainerBuilder $container): void

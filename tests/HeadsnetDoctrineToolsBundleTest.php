@@ -20,6 +20,9 @@ class HeadsnetDoctrineToolsBundleTest extends KernelTestCase
         return TestKernel::class;
     }
 
+    /**
+     * @param array{debug?: bool, environment?: string} $options
+     */
     protected static function createKernel(array $options = []): KernelInterface
     {
         /** @var TestKernel $kernel $kernel */

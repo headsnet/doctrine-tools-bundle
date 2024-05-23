@@ -1,5 +1,5 @@
 
-name: Headsnet Doctrine Tools Test
+name: CI Pipeline
 
 on:
   push: ~
@@ -11,7 +11,7 @@ jobs:
     name: PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
     strategy:
       matrix:
-        operating-system: [ 'ubuntu-22.04', 'windows-2022' ]
+        operating-system: [ 'ubuntu-22.04' ]
         php: [ '8.1', '8.2', '8.3' ]
         symfony: ['6.4.*', '7.0.*']
         exclude:
@@ -26,6 +26,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: flex
+          coverage: pcov
 
       - name: Download dependencies
         env:
@@ -33,4 +34,35 @@ jobs:
         uses: ramsey/composer-install@v3
 
       - name: Run test suite on PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
-        run: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit --coverage-clover clover.xml
+
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/coverage.svg
+          push_badge: false
+
+      - name: Git push to image-data branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./output
+          publish_branch: image-data
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+  ecs:
+    name: Easy Coding Standard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ramsey/composer-install@v3
+      - run: vendor/bin/ecs
+
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ramsey/composer-install@v3
+      - run: vendor/bin/phpstan

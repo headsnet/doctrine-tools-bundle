@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Headsnet\DoctrineToolsBundle\Tests\CustomTypes;
 
-use Headsnet\DoctrineToolsBundle\CustomTypes\CustomType;
 use Headsnet\DoctrineToolsBundle\CustomTypes\CustomTypeNamer;
 use Headsnet\DoctrineToolsBundle\Tests\CustomTypes\Fixtures\DummyCustomType;
 use Headsnet\DoctrineToolsBundle\Tests\CustomTypes\Fixtures\DummyCustomTypeWithName;
