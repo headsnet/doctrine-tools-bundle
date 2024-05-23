@@ -21,7 +21,11 @@
     "phpunit/phpunit": "^10.0",
     "nyholm/symfony-bundle-test": "^3.0",
     "phpstan/phpstan": "^1.11",
-    "symplify/easy-coding-standard": "^12.2"
+    "symplify/easy-coding-standard": "^12.2",
+    "nesbot/carbon": "^3.3"
+  },
+  "suggest": {
+    "nesbot/carbon": "If present, this package will automatically register the Carbon Doctrine types."
   },
   "autoload": {
     "psr-4": {

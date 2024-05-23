@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Headsnet\DoctrineToolsBundle\Tests;
 
+use Headsnet\DoctrineToolsBundle\CarbonTypes\RegisterCarbonTypesCompilerPass;
 use Headsnet\DoctrineToolsBundle\CustomTypes\RegisterDoctrineTypesCompilerPass;
 use Headsnet\DoctrineToolsBundle\HeadsnetDoctrineToolsBundle;
 use Nyholm\BundleTest\TestKernel;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 #[CoversClass(HeadsnetDoctrineToolsBundle::class)]
+#[CoversClass(RegisterCarbonTypesCompilerPass::class)]
 #[CoversClass(RegisterDoctrineTypesCompilerPass::class)]
 class HeadsnetDoctrineToolsBundleTest extends KernelTestCase
 {

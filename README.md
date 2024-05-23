@@ -1,4 +1,4 @@
-Doctrine Tools
+Doctrine Tools for Symfony
 ====
 
 ![Build Status](https://github.com/headsnet/doctrine-tools-bundle/actions/workflows/ci.yml/badge.svg)
@@ -27,7 +27,10 @@ return [
 
 ## Features
 
-### Auto-Register Custom Column Types
+- [Auto-Register Custom Doctrine Types](#auto-register-custom-doctrine-types)
+- [Auto-Register Carbon Doctrine Types](#auto-register-carbon-datetime-types)
+
+### Auto-Register Custom Doctrine Types
 
 The bundle can auto-register custom Doctrine DBAL types, eliminating the need to specify them all in 
 `config/packages/doctrine.yaml`:
@@ -47,20 +50,53 @@ Then add the `#[CustomType]` attribute to the custom type class:
 use Doctrine\DBAL\Types\Type;
 
 #[CustomType]
-final class CarbonDateTimeType extends Type
+final class ReservationIdType extends Type
 {
-    ...
+    // defines "reservation_id" type
 }
 ```
 
 This will register a custom type based on the class name - in this case the custom column type will be called 
-`carbon_date_time`.
+`reservation_id`.
 
-To customise the type name, specify it in the `#[CustomType]` attribute - e.g. the following will register a type 
-called `custom_carbon_datetime`.
+To customise the type name, specify it in the `#[CustomType]` attribute. The following will register a type 
+called `my_reservation_id`.
 
 ```php
-#[CustomType(name: 'custom_carbon_datetime')]
+#[CustomType(name: 'my_reservation_id')]
+final class ReservationIdType extends Type
+{
+    // customised name "my_reservation_id" type
+}
+```
+
+### Auto-Register Carbon datetime types
+
+If the `nesbot/carbon` package is installed, this package will automatically register the Doctrine types provided by 
+Carbon.
+
+By default, it will overwrite the default Doctrine types for `datetime` and `datetime_immutable` with the Carbon 
+equivalents:
+
+```yaml
+datetime_immutable: \Carbon\Doctrine\DateTimeImmutableType
+datetime: \Carbon\Doctrine\DateTimeType
+```
+If you wish the Carbon types to operate alongside the default DateTime and DateTimeImmutable types, set `replace: 
+false` in the bundle configuration. This will result in additional types being defined for the Carbon columns.
+
+```yaml
+carbon_immutable: \Carbon\Doctrine\DateTimeImmutableType
+carbon: \Carbon\Doctrine\DateTimeType
+```
+
+If you wish to completely disable this behaviour, set `enabled: false` in the bundle configuration.
+
+```yaml
+headsnet_doctrine_tools:
+  carbon_types:
+    enabled: true
+    replace: true
 ```
 
 ## Contributions
