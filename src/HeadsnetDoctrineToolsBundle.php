@@ -2,8 +2,8 @@
 
 namespace Headsnet\DoctrineToolsBundle;
 
-use Headsnet\DoctrineToolsBundle\CarbonTypes\RegisterCarbonTypesCompilerPass;
-use Headsnet\DoctrineToolsBundle\CustomTypes\RegisterDoctrineTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\CarbonTypes\CarbonTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\CustomTypes\CustomTypesCompilerPass;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -54,11 +54,11 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
         parent::build($container);
 
         $container->addCompilerPass(
-            new RegisterDoctrineTypesCompilerPass()
+            new CustomTypesCompilerPass()
         );
 
         $container->addCompilerPass(
-            new RegisterCarbonTypesCompilerPass()
+            new CarbonTypesCompilerPass()
         );
     }
 }

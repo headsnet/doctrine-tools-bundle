@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * This saves having to specify them all individually in the Doctrine configuration which is tedious.
  */
-final class RegisterDoctrineTypesCompilerPass implements CompilerPassInterface
+final class CustomTypesCompilerPass implements CompilerPassInterface
 {
     private const TYPE_DEFINITION_PARAMETER = 'doctrine.dbal.connection_factory.types';
 

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Headsnet\DoctrineToolsBundle\Tests;
 
-use Headsnet\DoctrineToolsBundle\CarbonTypes\RegisterCarbonTypesCompilerPass;
-use Headsnet\DoctrineToolsBundle\CustomTypes\RegisterDoctrineTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\CarbonTypes\CarbonTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\CustomTypes\CustomTypesCompilerPass;
 use Headsnet\DoctrineToolsBundle\HeadsnetDoctrineToolsBundle;
 use Nyholm\BundleTest\TestKernel;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -13,8 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 #[CoversClass(HeadsnetDoctrineToolsBundle::class)]
-#[CoversClass(RegisterCarbonTypesCompilerPass::class)]
-#[CoversClass(RegisterDoctrineTypesCompilerPass::class)]
+#[CoversClass(CarbonTypesCompilerPass::class)]
+#[CoversClass(CustomTypesCompilerPass::class)]
 class HeadsnetDoctrineToolsBundleTest extends KernelTestCase
 {
     protected static function getKernelClass(): string

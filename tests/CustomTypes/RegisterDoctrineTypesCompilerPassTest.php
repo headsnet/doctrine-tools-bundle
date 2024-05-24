@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Headsnet\DoctrineToolsBundle\Tests\CustomTypes;
 
 use Headsnet\DoctrineToolsBundle\CustomTypes\CustomTypeNamer;
-use Headsnet\DoctrineToolsBundle\CustomTypes\RegisterDoctrineTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\CustomTypes\CustomTypesCompilerPass;
 use Headsnet\DoctrineToolsBundle\Tests\CustomTypes\Fixtures\DummyCustomType;
 use Headsnet\DoctrineToolsBundle\Tests\CustomTypes\Fixtures\DummyCustomTypeWithName;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-#[CoversClass(RegisterDoctrineTypesCompilerPass::class)]
+#[CoversClass(CustomTypesCompilerPass::class)]
 #[CoversClass(CustomTypeNamer::class)]
 class RegisterDoctrineTypesCompilerPassTest extends TestCase
 {
@@ -24,7 +24,7 @@ class RegisterDoctrineTypesCompilerPassTest extends TestCase
         $container->setParameter('headsnet_doctrine_tools.custom_types.scan_dirs', [
             __DIR__ . '/Fixtures',
         ]);
-        $sut = new RegisterDoctrineTypesCompilerPass();
+        $sut = new CustomTypesCompilerPass();
 
         $sut->process($container);
 
@@ -52,7 +52,7 @@ class RegisterDoctrineTypesCompilerPassTest extends TestCase
         $container->setParameter('headsnet_doctrine_tools.custom_types.scan_dirs', [
             __DIR__ . '/Fixtures',
         ]);
-        $sut = new RegisterDoctrineTypesCompilerPass();
+        $sut = new CustomTypesCompilerPass();
 
         $sut->process($container);
 

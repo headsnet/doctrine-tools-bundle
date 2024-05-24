@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Automatically registers the custom Doctrine types provided by the Carbon library.
  */
-final class RegisterCarbonTypesCompilerPass implements CompilerPassInterface
+final class CarbonTypesCompilerPass implements CompilerPassInterface
 {
     private const TYPE_DEFINITION_PARAMETER = 'doctrine.dbal.connection_factory.types';
 
