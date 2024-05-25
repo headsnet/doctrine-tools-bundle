@@ -1,4 +1,5 @@
 headsnet_doctrine_tools:
-  custom_mappings:
+  root_namespace: App
+  carbon_mappings:
     scan_dirs:
       - 'src/Infra/Persistence/DBAL/Types'
