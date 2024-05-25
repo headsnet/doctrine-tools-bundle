@@ -17,14 +17,14 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
         $definition->rootNode()
             ->children()
                 ->scalarNode('root_namespace')->cannotBeEmpty()->end()
-                ->arrayNode('preset_types')
+                ->arrayNode('custom_types')
                     ->canBeDisabled()
                     ->children()
                         ->arrayNode('scan_dirs')
                             ->defaultValue(['src/'])->scalarPrototype()->end()
                         ->end()
                     ->end()
-                ->end() // End preset_types
+                ->end() // End custom_types
                 ->arrayNode('custom_mappings')
                     ->children()
                         ->arrayNode('scan_dirs')
@@ -44,7 +44,7 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
     /**
      * @param array{
      *     root_namespace: string,
-     *     preset_types: array{scan_dirs: array<string>},
+     *     custom_types: array{scan_dirs: array<string>},
      *     custom_mappings: array{scan_dirs: array<string>},
      *     carbon_mappings: array{enabled: boolean, replace: boolean}
      * } $config
@@ -55,7 +55,7 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
 
         $container->parameters()
             ->set('headsnet_doctrine_tools.root_namespace', $config['root_namespace'])
-            ->set('headsnet_doctrine_tools.preset_types.scan_dirs', $config['preset_types']['scan_dirs'])
+            ->set('headsnet_doctrine_tools.custom_types.scan_dirs', $config['custom_types']['scan_dirs'])
             ->set('headsnet_doctrine_tools.custom_mappings.scan_dirs', $config['custom_mappings']['scan_dirs'])
             ->set('headsnet_doctrine_tools.carbon_mappings.enabled', $config['carbon_mappings']['enabled'])
             ->set('headsnet_doctrine_tools.carbon_mappings.replace', $config['carbon_mappings']['replace'])
