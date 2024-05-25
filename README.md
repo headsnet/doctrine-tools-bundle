@@ -27,10 +27,10 @@ return [
 
 ## Features
 
-- [Auto-Register Custom Doctrine Type Mappings](#auto-register-custom-doctrine-types)
-- [Auto-Register Carbon Doctrine Type Mappings](#auto-register-carbon-datetime-types)
+- [Auto-Register Custom Doctrine Type Mappings](#auto-register-custom-doctrine-type-mappings)
+- [Auto-Register Carbon Doctrine Type Mappings](#auto-register-carbon-datetime-type-mappings)
 
-### Auto-Register Custom Doctrine Types
+### Auto-Register Custom Doctrine Type Mappings
 
 The bundle can auto-register custom Doctrine DBAL types, eliminating the need to specify them all in 
 `config/packages/doctrine.yaml`:
@@ -39,7 +39,7 @@ Define the directories to scan for Doctrine types:
 
 ```yaml
 headsnet_doctrine_tools:
-  custom_types:
+  custom_mappings:
     scan_dirs:
       - 'src/Infra/Persistence/DBAL/Types'
 ```
@@ -70,7 +70,7 @@ final class ReservationIdType extends Type
 }
 ```
 
-### Auto-Register Carbon datetime types
+### Auto-Register Carbon datetime type mappings
 
 If the `nesbot/carbon` package is installed, this package will automatically register the Doctrine types provided by 
 Carbon.
@@ -94,7 +94,7 @@ If you wish to completely disable this behaviour, set `enabled: false` in the bu
 
 ```yaml
 headsnet_doctrine_tools:
-  carbon_types:
+  carbon_mappings:
     enabled: true
     replace: true
 ```

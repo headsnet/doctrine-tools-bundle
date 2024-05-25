@@ -1,4 +1,4 @@
 headsnet_doctrine_tools:
-  custom_types:
+  custom_mappings:
     scan_dirs:
       - 'src/Infra/Persistence/DBAL/Types'

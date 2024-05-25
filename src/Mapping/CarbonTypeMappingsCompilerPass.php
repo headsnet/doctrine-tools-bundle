@@ -15,8 +15,8 @@ final class CarbonTypeMappingsCompilerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        // Skip if carbon_types is disabled in the configuration
-        if (!$container->getParameter('headsnet_doctrine_tools.carbon_types.enabled')) {
+        // Skip if carbon_mappings is disabled in the configuration
+        if (!$container->getParameter('headsnet_doctrine_tools.carbon_mappings.enabled')) {
             return;
         }
 
@@ -34,7 +34,7 @@ final class CarbonTypeMappingsCompilerPass implements CompilerPassInterface
         $typeDefinitions = $container->getParameter(self::TYPE_DEFINITION_PARAMETER);
 
         // Use Carbon to upgrade standard datetime and datetime_immutable column types
-        if ($container->getParameter('headsnet_doctrine_tools.carbon_types.replace')) {
+        if ($container->getParameter('headsnet_doctrine_tools.carbon_mappings.replace')) {
             $immutableName = 'datetime_immutable';
             $mutableName = 'datetime';
         }

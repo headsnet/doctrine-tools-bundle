@@ -15,12 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class CarbonTypeMappingsCompilerPassTest extends TestCase
 {
     #[Test]
-    public function carbon_types_are_registered(): void
+    public function carbon_mappings_are_registered(): void
     {
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
-        $container->setParameter('headsnet_doctrine_tools.carbon_types.enabled', true);
-        $container->setParameter('headsnet_doctrine_tools.carbon_types.replace', true);
+        $container->setParameter('headsnet_doctrine_tools.carbon_mappings.enabled', true);
+        $container->setParameter('headsnet_doctrine_tools.carbon_mappings.replace', true);
         $sut = new CarbonTypeMappingsCompilerPass();
 
         $sut->process($container);
@@ -38,12 +38,12 @@ class CarbonTypeMappingsCompilerPassTest extends TestCase
     }
 
     #[Test]
-    public function carbon_types_are_registered_separately(): void
+    public function carbon_mappings_are_registered_separately(): void
     {
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
-        $container->setParameter('headsnet_doctrine_tools.carbon_types.enabled', true);
-        $container->setParameter('headsnet_doctrine_tools.carbon_types.replace', false);
+        $container->setParameter('headsnet_doctrine_tools.carbon_mappings.enabled', true);
+        $container->setParameter('headsnet_doctrine_tools.carbon_mappings.replace', false);
         $sut = new CarbonTypeMappingsCompilerPass();
 
         $sut->process($container);
@@ -65,7 +65,7 @@ class CarbonTypeMappingsCompilerPassTest extends TestCase
     {
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
-        $container->setParameter('headsnet_doctrine_tools.carbon_types.enabled', false);
+        $container->setParameter('headsnet_doctrine_tools.carbon_mappings.enabled', false);
         $sut = new CarbonTypeMappingsCompilerPass();
 
         $sut->process($container);
