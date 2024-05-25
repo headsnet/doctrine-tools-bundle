@@ -8,6 +8,9 @@ use Doctrine\DBAL\Types\Type;
 
 abstract class AbstractIntegerMappingType extends Type
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return $platform->getIntegerTypeDeclarationSQL($column);

@@ -8,6 +8,9 @@ use Doctrine\DBAL\Types\Type;
 
 abstract class AbstractStringMappingType extends Type
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return $platform->getStringTypeDeclarationSQL($column);
@@ -32,11 +35,7 @@ abstract class AbstractStringMappingType extends Type
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if ($value === null) {
-            return null;
-        }
-
-        return $value->asString(); // @phpstan-ignore-line
+        return $value?->asString(); // @phpstan-ignore-line
     }
 
     abstract public function getName(): string;

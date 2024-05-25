@@ -5,16 +5,20 @@ namespace Headsnet\DoctrineToolsBundle\Types\StandardTypes;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
+use Symfony\Component\Uid\Uuid;
 
 abstract class AbstractUuidMappingType extends Type
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return $platform->getGuidTypeDeclarationSQL($column);
     }
 
     /**
-     * @param string|null $value
+     * @param Uuid|string|null $value
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?object
     {
@@ -24,7 +28,11 @@ abstract class AbstractUuidMappingType extends Type
 
         $class = $this->getClass();
 
-        return $class::fromString($value);
+        if (is_string($value)) {
+            return $class::fromString($value);
+        }
+
+        return $class::create($value);
     }
 
     /**

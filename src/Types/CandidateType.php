@@ -5,7 +5,7 @@ namespace Headsnet\DoctrineToolsBundle\Types;
 
 final class CandidateType
 {
-    private string $baseTypeClass;
+    private string $baseTypeClass = '';
 
     /**
      * @param class-string $objectClass
