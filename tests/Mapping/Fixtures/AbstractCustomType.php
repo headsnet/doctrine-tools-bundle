@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Headsnet\DoctrineToolsBundle\Tests\CustomTypes\Fixtures;
+namespace Headsnet\DoctrineToolsBundle\Tests\Mapping\Fixtures;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
-use Headsnet\DoctrineToolsBundle\CustomTypes\CustomType;
+use Headsnet\DoctrineToolsBundle\Attribute\DoctrineTypeMapping;
 
-#[CustomType]
+#[DoctrineTypeMapping]
 abstract class AbstractCustomType extends Type
 {
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string

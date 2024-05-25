@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Headsnet\DoctrineToolsBundle\CustomTypes;
+namespace Headsnet\DoctrineToolsBundle\Attribute;
 
 use Attribute;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-final class CustomType
+final class DoctrineTypeMapping
 {
     public string $name;
 
