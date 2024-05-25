@@ -21,7 +21,7 @@ class DoctrineTypeMappingsCompilerPassTest extends TestCase
     {
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
-        $container->setParameter('headsnet_doctrine_tools.custom_types.scan_dirs', [
+        $container->setParameter('headsnet_doctrine_tools.custom_mappings.scan_dirs', [
             __DIR__ . '/Fixtures',
         ]);
         $sut = new DoctrineTypeMappingsCompilerPass();
@@ -49,7 +49,7 @@ class DoctrineTypeMappingsCompilerPassTest extends TestCase
                 'class' => DummyCustomType::class,
             ],
         ]);
-        $container->setParameter('headsnet_doctrine_tools.custom_types.scan_dirs', [
+        $container->setParameter('headsnet_doctrine_tools.custom_mappings.scan_dirs', [
             __DIR__ . '/Fixtures',
         ]);
         $sut = new DoctrineTypeMappingsCompilerPass();

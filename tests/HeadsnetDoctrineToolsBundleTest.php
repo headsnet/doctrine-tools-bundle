@@ -42,6 +42,6 @@ class HeadsnetDoctrineToolsBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        $this->assertTrue($container->hasParameter('headsnet_doctrine_tools.custom_types.scan_dirs'));
+        $this->assertTrue($container->hasParameter('headsnet_doctrine_tools.custom_mappings.scan_dirs'));
     }
 }
