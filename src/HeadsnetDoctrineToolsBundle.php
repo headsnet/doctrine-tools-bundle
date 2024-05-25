@@ -2,8 +2,8 @@
 
 namespace Headsnet\DoctrineToolsBundle;
 
-use Headsnet\DoctrineToolsBundle\CarbonTypes\CarbonTypesCompilerPass;
-use Headsnet\DoctrineToolsBundle\CustomTypes\CustomTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\Mapping\CarbonTypeMappingsCompilerPass;
+use Headsnet\DoctrineToolsBundle\Mapping\DoctrineTypeMappingsCompilerPass;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -15,22 +15,19 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
     {
         $definition->rootNode()
             ->children()
-            ->arrayNode('custom_types')
-            ->children()
-            ->arrayNode('scan_dirs')
-            ->scalarPrototype()->end()
-            ->end()
-            ->end()
-            ->end() // End custom_types
-            ->arrayNode('carbon_types')
-            ->canBeDisabled()
-            ->children()
-            ->booleanNode('enabled')
-            ->defaultTrue()->end()
-            ->booleanNode('replace')
-            ->defaultTrue()->end()
-            ->end()
-            ->end() // End carbon_types
+                ->arrayNode('custom_types')
+                    ->children()
+                        ->arrayNode('scan_dirs')
+                            ->scalarPrototype()->end()
+                        ->end()
+                    ->end()
+                ->end() // End custom_types
+                ->arrayNode('carbon_types')
+                    ->canBeDisabled()
+                    ->children()
+                        ->booleanNode('replace')->defaultTrue()->end()
+                    ->end()
+                ->end() // End carbon_types
         ;
     }
 
@@ -54,11 +51,11 @@ class HeadsnetDoctrineToolsBundle extends AbstractBundle
         parent::build($container);
 
         $container->addCompilerPass(
-            new CustomTypesCompilerPass()
+            new DoctrineTypeMappingsCompilerPass()
         );
 
         $container->addCompilerPass(
-            new CarbonTypesCompilerPass()
+            new CarbonTypeMappingsCompilerPass()
         );
     }
 }

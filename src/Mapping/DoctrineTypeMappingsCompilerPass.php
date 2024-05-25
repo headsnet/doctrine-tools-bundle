@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Headsnet\DoctrineToolsBundle\CustomTypes;
+namespace Headsnet\DoctrineToolsBundle\Mapping;
 
 use Doctrine\DBAL\Types\Type;
 use Generator;
+use Headsnet\DoctrineToolsBundle\Attribute\DoctrineTypeMapping;
 use League\ConstructFinder\ConstructFinder;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -15,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * This saves having to specify them all individually in the Doctrine configuration which is tedious.
  */
-final class CustomTypesCompilerPass implements CompilerPassInterface
+final class DoctrineTypeMappingsCompilerPass implements CompilerPassInterface
 {
     private const TYPE_DEFINITION_PARAMETER = 'doctrine.dbal.connection_factory.types';
 
@@ -72,9 +73,9 @@ final class CustomTypesCompilerPass implements CompilerPassInterface
             }
 
             // Only register types that have the #[CustomType] attribute
-            if ($reflection->getAttributes(CustomType::class)) {
+            if ($reflection->getAttributes(DoctrineTypeMapping::class)) {
                 yield [
-                    'name' => CustomTypeNamer::getTypeName($reflection),
+                    'name' => DoctrineTypeMappingNamer::getTypeName($reflection),
                     'class' => $className,
                 ];
             }

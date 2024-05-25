@@ -27,8 +27,8 @@ return [
 
 ## Features
 
-- [Auto-Register Custom Doctrine Types](#auto-register-custom-doctrine-types)
-- [Auto-Register Carbon Doctrine Types](#auto-register-carbon-datetime-types)
+- [Auto-Register Custom Doctrine Type Mappings](#auto-register-custom-doctrine-types)
+- [Auto-Register Carbon Doctrine Type Mappings](#auto-register-carbon-datetime-types)
 
 ### Auto-Register Custom Doctrine Types
 
@@ -44,12 +44,12 @@ headsnet_doctrine_tools:
       - 'src/Infra/Persistence/DBAL/Types'
 ```
 
-Then add the `#[CustomType]` attribute to the custom type class:
+Then add the `#[DoctrineTypeMapping]` attribute to the custom type class:
 
 ```php
 use Doctrine\DBAL\Types\Type;
 
-#[CustomType]
+#[DoctrineTypeMapping]
 final class ReservationIdType extends Type
 {
     // defines "reservation_id" type
@@ -59,11 +59,11 @@ final class ReservationIdType extends Type
 This will register a custom type based on the class name - in this case the custom column type will be called 
 `reservation_id`.
 
-To customise the type name, specify it in the `#[CustomType]` attribute. The following will register a type 
+To customise the type name, specify it in the `#[DoctrineTypeMapping]` attribute. The following will register a type 
 called `my_reservation_id`.
 
 ```php
-#[CustomType(name: 'my_reservation_id')]
+#[DoctrineTypeMapping(name: 'my_reservation_id')]
 final class ReservationIdType extends Type
 {
     // customised name "my_reservation_id" type

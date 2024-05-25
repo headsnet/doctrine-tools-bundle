@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Headsnet\DoctrineToolsBundle\Tests\CarbonTypes;
+namespace Headsnet\DoctrineToolsBundle\Tests\Mapping;
 
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
-use Headsnet\DoctrineToolsBundle\CarbonTypes\CarbonTypesCompilerPass;
+use Headsnet\DoctrineToolsBundle\Mapping\CarbonTypeMappingsCompilerPass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-#[CoversClass(CarbonTypesCompilerPass::class)]
-class RegisterCarbonTypesCompilerPassTest extends TestCase
+#[CoversClass(CarbonTypeMappingsCompilerPass::class)]
+class CarbonTypeMappingsCompilerPassTest extends TestCase
 {
     #[Test]
     public function carbon_types_are_registered(): void
@@ -21,7 +21,7 @@ class RegisterCarbonTypesCompilerPassTest extends TestCase
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
         $container->setParameter('headsnet_doctrine_tools.carbon_types.enabled', true);
         $container->setParameter('headsnet_doctrine_tools.carbon_types.replace', true);
-        $sut = new CarbonTypesCompilerPass();
+        $sut = new CarbonTypeMappingsCompilerPass();
 
         $sut->process($container);
 
@@ -44,7 +44,7 @@ class RegisterCarbonTypesCompilerPassTest extends TestCase
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
         $container->setParameter('headsnet_doctrine_tools.carbon_types.enabled', true);
         $container->setParameter('headsnet_doctrine_tools.carbon_types.replace', false);
-        $sut = new CarbonTypesCompilerPass();
+        $sut = new CarbonTypeMappingsCompilerPass();
 
         $sut->process($container);
 
@@ -66,7 +66,7 @@ class RegisterCarbonTypesCompilerPassTest extends TestCase
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.dbal.connection_factory.types', []);
         $container->setParameter('headsnet_doctrine_tools.carbon_types.enabled', false);
-        $sut = new CarbonTypesCompilerPass();
+        $sut = new CarbonTypeMappingsCompilerPass();
 
         $sut->process($container);
 

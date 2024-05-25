@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Headsnet\DoctrineToolsBundle\CustomTypes;
+namespace Headsnet\DoctrineToolsBundle\Mapping;
 
 use Doctrine\DBAL\Types\Type;
+use Headsnet\DoctrineToolsBundle\Attribute\DoctrineTypeMapping;
 use ReflectionClass;
 
 /**
@@ -11,14 +12,14 @@ use ReflectionClass;
  *
  * Otherwise derive it from the class name - e.g. "CarbonDateType" => "carbon_date"
  */
-final class CustomTypeNamer
+final class DoctrineTypeMappingNamer
 {
     /**
      * @param ReflectionClass<Type> $reflection
      */
     public static function getTypeName(ReflectionClass $reflection): string
     {
-        $attribute = $reflection->getAttributes(CustomType::class)[0];
+        $attribute = $reflection->getAttributes(DoctrineTypeMapping::class)[0];
 
         $attributeArgs = $attribute->getArguments();
 

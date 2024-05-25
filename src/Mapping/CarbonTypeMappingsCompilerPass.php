@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Headsnet\DoctrineToolsBundle\CarbonTypes;
+namespace Headsnet\DoctrineToolsBundle\Mapping;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Automatically registers the custom Doctrine types provided by the Carbon library.
  */
-final class CarbonTypesCompilerPass implements CompilerPassInterface
+final class CarbonTypeMappingsCompilerPass implements CompilerPassInterface
 {
     private const TYPE_DEFINITION_PARAMETER = 'doctrine.dbal.connection_factory.types';
 
