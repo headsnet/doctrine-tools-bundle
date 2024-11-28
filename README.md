@@ -13,7 +13,7 @@ Various tools and helpers for using Doctrine ORM in larger Symfony projects.
 ## Installation
 
 ```bash
-composer require headsnet/doctrine-tools
+composer require headsnet/doctrine-tools-bundle
 ```
 If your Symfony installation does not auto-register bundles, add it manually:
 
