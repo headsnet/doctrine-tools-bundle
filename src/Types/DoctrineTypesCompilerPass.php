@@ -65,7 +65,9 @@ final class DoctrineTypesCompilerPass implements CompilerPassInterface
             ];
         }
 
-        $container->setParameter(self::TYPE_DEFINITION_PARAMETER, $typeDefinitions);
+        $existingTypes = $container->getParameter(self::TYPE_DEFINITION_PARAMETER);
+
+        $container->setParameter(self::TYPE_DEFINITION_PARAMETER, $existingTypes + $typeDefinitions);
     }
 
     /**
