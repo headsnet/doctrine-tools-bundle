@@ -11,6 +11,14 @@ abstract class AbstractIntegerMappingType extends Type
     /**
      * @codeCoverageIgnore
      */
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return $platform->getIntegerTypeDeclarationSQL($column);
