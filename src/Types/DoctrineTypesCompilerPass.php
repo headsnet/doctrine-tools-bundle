@@ -25,10 +25,13 @@ final class DoctrineTypesCompilerPass implements CompilerPassInterface
             return;
         }
 
+        /** @var string $projectDir */
+        $projectDir = $container->getParameter('kernel.project_dir');
         /** @var array<string, array{class: class-string}> $typeDefinitions */
         $typeDefinitions = $container->getParameter(self::TYPE_DEFINITION_PARAMETER);
         /** @var array<string> $scanDirs */
         $scanDirs = $container->getParameter('headsnet_doctrine_tools.custom_types.scan_dirs');
+        $scanDirs = array_map(fn (string $dir) => $projectDir . '/' . $dir, $scanDirs);
         $this->rootNamespace = $container->getParameter('headsnet_doctrine_tools.root_namespace'); // @phpstan-ignore-line
 
         $objectsToRegister = $this->findObjectsToRegister($scanDirs);
