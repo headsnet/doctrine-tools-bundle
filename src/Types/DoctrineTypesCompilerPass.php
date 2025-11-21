@@ -17,6 +17,8 @@ final class DoctrineTypesCompilerPass implements CompilerPassInterface
 {
     private const TYPE_DEFINITION_PARAMETER = 'doctrine.dbal.connection_factory.types';
 
+    private string $projectDir;
+
     private string $rootNamespace;
 
     public function process(ContainerBuilder $container): void
@@ -25,14 +27,14 @@ final class DoctrineTypesCompilerPass implements CompilerPassInterface
             return;
         }
 
-        /** @var string $projectDir */
-        $projectDir = $container->getParameter('kernel.project_dir');
+        $this->loadParameters($container);
+
         /** @var array<string, array{class: class-string}> $typeDefinitions */
         $typeDefinitions = $container->getParameter(self::TYPE_DEFINITION_PARAMETER);
+
         /** @var array<string> $scanDirs */
         $scanDirs = $container->getParameter('headsnet_doctrine_tools.custom_types.scan_dirs');
-        $scanDirs = array_map(fn (string $dir) => $projectDir . '/' . $dir, $scanDirs);
-        $this->rootNamespace = $container->getParameter('headsnet_doctrine_tools.root_namespace'); // @phpstan-ignore-line
+        $scanDirs = array_map(fn (string $dir) => $this->projectDir . '/' . $dir, $scanDirs);
 
         $objectsToRegister = $this->findObjectsToRegister($scanDirs);
 
@@ -130,12 +132,22 @@ PHP;
     {
         $classCode = $this->generateClass($candidate);
 
-        $filePath = sprintf('src/_generated/HeadsnetDoctrineTools/Types/%s.php', $candidate->typeClass);
+        $filePath = sprintf(
+            '%s/src/_generated/HeadsnetDoctrineTools/Types/%s.php',
+            $this->projectDir,
+            $candidate->typeClass
+        );
 
         if (!is_dir(dirname($filePath))) {
             mkdir(dirname($filePath), 0777, true);
         }
 
         file_put_contents($filePath, $classCode);
+    }
+
+    private function loadParameters(ContainerBuilder $container): void
+    {
+        $this->projectDir = $container->getParameter('kernel.project_dir'); // @phpstan-ignore-line
+        $this->rootNamespace = $container->getParameter('headsnet_doctrine_tools.root_namespace'); // @phpstan-ignore-line
     }
 }
