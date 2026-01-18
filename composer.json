@@ -11,19 +11,19 @@
   "require": {
     "php": ">=8.2",
     "doctrine/dbal": "^3.0 || ^4.0",
+    "doctrine/doctrine-bundle": "^2.0 || ^3.0",
     "league/construct-finder": "^1.5",
-    "symfony/config": "^6.0 || ^7.0",
-    "symfony/dependency-injection": "^6.0 || ^7.0",
-    "symfony/http-kernel": "^6.0 || ^7.0",
-    "doctrine/doctrine-bundle": "^2.0",
-    "symfony/uid": "^7.0"
+    "symfony/config": "^6.0 || ^7.0 || ^8.0",
+    "symfony/dependency-injection": "^6.0 || ^7.0 || ^8.0",
+    "symfony/http-kernel": "^6.0 || ^7.0 || ^8.0",
+    "symfony/uid": "^7.0 || ^8.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^10.0",
+    "nesbot/carbon": "^3.3",
     "nyholm/symfony-bundle-test": "^3.0",
+    "phpunit/phpunit": "^10.0",
     "phpstan/phpstan": "^1.11",
-    "symplify/easy-coding-standard": "^12.2",
-    "nesbot/carbon": "^3.3"
+    "symplify/easy-coding-standard": "^12.2"
   },
   "suggest": {
     "nesbot/carbon": "If present, this package will automatically register the Carbon Doctrine types."
