@@ -46,7 +46,7 @@ final class DoctrineTypesCompilerPass implements CompilerPassInterface
                 continue;
             }
 
-            /** @var MappingPrototype $prototypeType */
+            /** @var class-string<MappingPrototype> $prototypeType */
             foreach ($prototypeTypes as $prototypeType) {
                 if ($prototypeType::supports($candidate->baseType)) {
                     $candidate->setBaseTypeClass(
