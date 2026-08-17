@@ -5,6 +5,3 @@ parameters:
   paths:
     - src/
     - tests/
-
-  ignoreErrors:
-    - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\).#'
